@@ -1,0 +1,39 @@
+.diagram-container {
+  position: relative;
+}
+
+/* This rule is now more specific */
+.diagram-container .muscle-diagram {
+  max-width: 400px;
+  filter: grayscale(100%) !important; /* <-- ADD !important HERE */
+}
+
+.highlight-overlay {
+  max-width: 400px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.muscle-hotspot {
+  position: absolute;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.chest-hotspot {
+  top: 23%; 
+  left: 38%;
+  width: 24%;
+  height: 15%;
+}
+
+.muscle-hotspot {
+  position: absolute;
+  border: 1px solid red;
+  background-color: rgba(255, 0, 0, 0.2);
+  cursor: pointer;
+}
