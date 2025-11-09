@@ -20,7 +20,6 @@ function RegisterPage() {
     }
 
     try {
-      // This will be your registration endpoint in Laravel
       const response = await axios.post('http://127.0.0.1:8000/api/register', {
         first_name: firstName,
         last_name: lastName,
@@ -29,7 +28,6 @@ function RegisterPage() {
         password_confirmation: passwordConfirmation,
       });
 
-      // After a successful registration, you can automatically log the user in
       localStorage.setItem('authToken', response.data.token);
       window.dispatchEvent(new Event('authChange'));
       
@@ -41,7 +39,6 @@ function RegisterPage() {
         isClosable: true,
       });
 
-      // Navigate to the dashboard or profile page to enter vitals
       navigate('/profile'); 
 
     } catch (error) {

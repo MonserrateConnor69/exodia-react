@@ -8,7 +8,6 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    {/* ✅ Pass your imported theme to the provider */}
     <ChakraProvider theme={theme}>
       <App />
     </ChakraProvider>

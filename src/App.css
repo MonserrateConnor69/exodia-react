@@ -2,10 +2,9 @@
   position: relative;
 }
 
-/* This rule is now more specific */
 .diagram-container .muscle-diagram {
   max-width: 400px;
-  filter: grayscale(100%) !important; /* <-- ADD !important HERE */
+  filter: grayscale(100%) !important; 
 }
 
 .highlight-overlay {

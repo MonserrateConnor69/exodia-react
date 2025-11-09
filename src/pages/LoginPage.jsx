@@ -39,8 +39,7 @@ function LoginPage() {
         isClosable: true,
       });
 
-      // Using window.location.href forces a full page reload,
-      // which is a reliable way to make the Navbar update.
+      
       window.location.href = '/';
 
     } catch (error) {
@@ -51,7 +50,7 @@ function LoginPage() {
         duration: 5000,
         isClosable: true,
       });
-      console.error("Login error:", error.response); // Log the response for more details
+      console.error("Login error:", error.response); 
     }
   };
 
@@ -67,7 +66,7 @@ function LoginPage() {
           type="email"
           placeholder="you@example.com"
           value={email}
-          onChange={(e) => setEmail(e.target.value)} // <-- THE FIX IS HERE
+          onChange={(e) => setEmail(e.target.value)} 
         />
       </FormControl>
 
