@@ -26,8 +26,8 @@ function ProfilePage() {
       const token = localStorage.getItem('authToken');
       if (token) {
         try {
-          const response = await axios.get('http://127.0.0.1:8000/api/user', {
-            headers: { Authorization: `Bearer ${token}` }
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
+              headers: { Authorization: `Bearer ${token}` }
           });
           const user = response.data;
           
@@ -87,8 +87,8 @@ function ProfilePage() {
     };
 
     try {
-      await axios.post('http://127.0.0.1:8000/api/user/vitals', submissionData, {
-        headers: { Authorization: `Bearer ${token}` }
+     await axios.post(`${import.meta.env.VITE_API_URL}/api/user/vitals`, submissionData, {
+  headers: { Authorization: `Bearer ${token}` }
       });
       toast({ title: "Success!", description: "Your vitals have been updated.", status: "success", isClosable: true });
       navigate('/');       

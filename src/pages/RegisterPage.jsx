@@ -20,7 +20,7 @@ function RegisterPage() {
     }
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/register', {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/register`, {
         first_name: firstName,
         last_name: lastName,
         email,

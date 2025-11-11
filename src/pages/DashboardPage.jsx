@@ -48,28 +48,31 @@ function DashboardPage() {
 
         const fetchUserData = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/user', { headers: { Authorization: `Bearer ${token}` } });
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, { 
+            headers: { Authorization: `Bearer ${token}` }  });
                 setUser(response.data);
             } catch (error) { console.error("Error fetching user data:", error); }
         };
 
         const fetchMuscleGroups = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/muscle-groups');
-                setMuscleGroups(response.data);
+                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/muscle-groups`);
+        setMuscleGroups(response.data);
             } catch (error) { console.error("Error fetching muscle groups:", error); }
         };
 
         const fetchRecoveryStates = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/recovery-states', { headers: { Authorization: `Bearer ${token}` } });
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/recovery-states`, { 
+            headers: { Authorization: `Bearer ${token}` }  });
                 setRecoveryStates(response.data);
             } catch (error) { console.error("Error fetching recovery states:", error); }
         };
 
         const fetchLoggedWorkouts = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/workout-logs', { headers: { Authorization: `Bearer ${token}` } });
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/workout-logs`, { 
+    headers: { Authorization: `Bearer ${token}` }  });
                 const groupedLogs = response.data.reduce((acc, log) => {
                     const muscleId = log.exercise?.muscle_group_id;
                     if (muscleId) {
@@ -99,11 +102,11 @@ function DashboardPage() {
   const handleNextDay = async () => {
     const loadingToast = toast({ title: "Advancing to next day...", status: "info", duration: null });
     try {
-      await axios.post('http://127.0.0.1:8000/api/next-day', {}, {
-        headers: { Authorization: `Bearer ${token}` }
+     await axios.post(`${import.meta.env.VITE_API_URL}/api/next-day`, {}, {
+    headers: { Authorization: `Bearer ${token}` }
       });
-      const response = await axios.get('http://127.0.0.1:8000/api/recovery-states', {
-          headers: { Authorization: `Bearer ${token}` }
+     const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/recovery-states`, {
+    headers: { Authorization: `Bearer ${token}` }
       });
       setRecoveryStates(response.data);
       setLoggedWorkouts({});
@@ -146,8 +149,10 @@ function DashboardPage() {
     
     try {
         const [recoveryResponse, logsResponse] = await Promise.all([
-            axios.get('http://127.0.0.1:8000/api/recovery-states', { headers: { Authorization: `Bearer ${token}` } }),
-            axios.get('http://127.0.0.1:8000/api/workout-logs', { headers: { Authorization: `Bearer ${token}` } })
+           axios.get(`${import.meta.env.VITE_API_URL}/api/recovery-states`, { 
+    headers: { Authorization: `Bearer ${token}` }  }),
+           axios.get(`${import.meta.env.VITE_API_URL}/api/workout-logs`, { 
+    headers: { Authorization: `Bearer ${token}` }  })
         ]);
 
         setRecoveryStates(recoveryResponse.data);
@@ -174,8 +179,8 @@ function DashboardPage() {
     setSelectedMuscle(muscle);
     const loadingToast = toast({ title: "Generating AI Suggestions...", status: "info", duration: null });
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/ai/workout/${muscle.id}`, {
-        headers: { Authorization: `Bearer ${token}` }
+     const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/ai/workout/${muscle.id}`, {
+    headers: { Authorization: `Bearer ${token}` }
       });
       setAiExercises(response.data.exercises); 
       setIsModalOpen(true);
@@ -203,7 +208,7 @@ function DashboardPage() {
 
     try {
       const logPromises = pendingExercises.map(exercise => 
-        axios.post('http://127.0.0.1:8000/api/workout-logs',
+        axios.post(`${import.meta.env.VITE_API_URL}/api/workout-logs`, 
           { 
             exercise_name: exercise.name, 
             muscle_group_id: selectedMuscle.id,
@@ -215,8 +220,8 @@ function DashboardPage() {
       await Promise.all(logPromises);
 
       const [recoveryResponse, logsResponse] = await Promise.all([
-        axios.get('http://127.0.0.1:8000/api/recovery-states', { headers: { Authorization: `Bearer ${token}` } }),
-        axios.get('http://127.0.0.1:8000/api/workout-logs', { headers: { Authorization: `Bearer ${token}` } })
+        axios.get(`${import.meta.env.VITE_API_URL}/api/recovery-states`, { headers: { Authorization: `Bearer ${token}` } }),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/workout-logs`, { headers: { Authorization: `Bearer ${token}` } })
       ]);
       
       setRecoveryStates(recoveryResponse.data);
@@ -244,12 +249,12 @@ function DashboardPage() {
 
   const handleDeleteLog = async (logId) => {
       try {
-          await axios.delete(`http://127.0.0.1:8000/api/workout-logs/${logId}`, {
-              headers: { Authorization: `Bearer ${token}` }
+         await axios.delete(`${import.meta.env.VITE_API_URL}/api/workout-logs/${logId}`, {
+  headers: { Authorization: `Bearer ${token}` }
           });
           
-          const response = await axios.get('http://127.0.0.1:8000/api/workout-logs', {
-              headers: { Authorization: `Bearer ${token}` }
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/workout-logs`, {
+  headers: { Authorization: `Bearer ${token}` }
           });
           const groupedLogs = response.data.reduce((acc, log) => {
               const muscleId = log.exercise?.muscle_group_id;
@@ -287,10 +292,11 @@ const handleHeadClick = () => {
 const fetchDietRecommendation = async () => {
   setIsDietLoading(true);
   try {
-    const response = await axios.post('http://127.0.0.1:8000/api/diet-recommendation', 
-      {}, 
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+   const response = await axios.post(
+  `${import.meta.env.VITE_API_URL}/api/diet-recommendation`,
+  {},
+  { headers: { Authorization: `Bearer ${token}` } }
+);
     
     setDietPlan(response.data.diet_plan);
     setIsDietGenerated(true); 
