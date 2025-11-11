@@ -54,12 +54,15 @@ function DashboardPage() {
             } catch (error) { console.error("Error fetching user data:", error); }
         };
 
-        const fetchMuscleGroups = async () => {
-            try {
-                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/muscle-groups`);
-        setMuscleGroups(response.data);
-            } catch (error) { console.error("Error fetching muscle groups:", error); }
-        };
+       const fetchMuscleGroups = async () => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/muscle-groups`);
+    setMuscleGroups(response.data);
+  } catch (error) {
+    console.error("Error fetching muscle groups:", error);
+  }
+};
+
 
         const fetchRecoveryStates = async () => {
             try {
