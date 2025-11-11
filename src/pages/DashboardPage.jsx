@@ -320,51 +320,62 @@ const handleCloseDietModal = () => {
   return (
 
     <HStack spacing={10} align="start" w="100%" justify="center">
-   <VStack spacing={4} w="500px">
+  <VStack spacing={4} w="500px">
     
     {Object.keys(recoveryStates).length === 0 ? (
-        <Box textAlign="center" p={4} bg="rgba(0,0,0,0.3)" borderRadius="lg">
-            <Heading size="md" color="gray.200">Ready to Begin?</Heading>
-            <Text color="gray.400" mt={2}>Click on any muscle group to get your first AI workout!</Text>
-        </Box>
+      <Box textAlign="center" p={4} bg="rgba(0,0,0,0.3)" borderRadius="lg">
+        <Heading size="md" color="gray.200">Ready to Begin?</Heading>
+        <Text color="gray.400" mt={2}>Click on any muscle group to get your first AI workout!</Text>
+      </Box>
     ) : (
-        <Heading size="md" color="gray.400">
-            {isShowingFront ? 'Front View' : 'Back View'}
-        </Heading>
+      <Heading size="md" color="gray.400">
+        {isShowingFront ? 'Front View' : 'Back View'}
+      </Heading>
     )}
 
-    <MuscleDiagram
+    {/* Conditional rendering for MuscleDiagram */}
+    {muscleGroups.length > 0 ? (
+      <MuscleDiagram
         isShowingFront={isShowingFront}
         recoveryStates={recoveryStates}
         handleMuscleClick={handleMuscleClick}
         muscleGroups={muscleGroups}
         isDietGenerated={isDietGenerated}
-         onHeadClick={handleHeadClick}
-    />
-</VStack>
+        onHeadClick={handleHeadClick}
+      />
+    ) : (
+      // Placeholder while data loads
+      <Box h="400px" display="flex" alignItems="center" justifyContent="center">
+        <Spinner size="xl" color="teal.500" /> 
+      </Box>
+    )}
 
-      <VStack 
-        spacing={5} 
-        align="stretch" 
-        w="350px"
-        bg="rgba(27, 38, 59, 0.5)"
-        backdropFilter="blur(10px)"
-        p={6}
-        borderRadius="xl"
-        border="1px solid"
-        borderColor="brand.700"
-        boxShadow="xl"
-      >
-        {user && <Heading size="xl" textAlign="center" mb={2}>Welcome, {user.first_name}!</Heading>}
-        <Text fontSize="md" fontWeight="bold" textAlign="center" py={2} bg="rgba(0,0,0,0.2)" borderRadius="md">
-          Simulated Time: {simulatedDate.toLocaleString()}
-        </Text>
-        <HStack>
-          <Button onClick={handleNextDay} colorScheme="purple" flex={1}>Skip to Next Day</Button>
-          <Button onClick={resetTime} variant="outline" _hover={{ bg: 'brand.700' }} flex={1}>Reset Time</Button>
-        </HStack>
-        <Button onClick={handleFlipView} colorScheme="teal">Flip View</Button>
-      </VStack>
+  </VStack>
+
+  <VStack 
+    spacing={5} 
+    align="stretch" 
+    w="350px"
+    bg="rgba(27, 38, 59, 0.5)"
+    backdropFilter="blur(10px)"
+    p={6}
+    borderRadius="xl"
+    border="1px solid"
+    borderColor="brand.700"
+    boxShadow="xl"
+  >
+    {user && <Heading size="xl" textAlign="center" mb={2}>Welcome, {user.first_name}!</Heading>}
+    <Text fontSize="md" fontWeight="bold" textAlign="center" py={2} bg="rgba(0,0,0,0.2)" borderRadius="md">
+      Simulated Time: {simulatedDate.toLocaleString()}
+    </Text>
+    <HStack>
+      <Button onClick={handleNextDay} colorScheme="purple" flex={1}>Skip to Next Day</Button>
+      <Button onClick={resetTime} variant="outline" _hover={{ bg: 'brand.700' }} flex={1}>Reset Time</Button>
+    </HStack>
+    <Button onClick={handleFlipView} colorScheme="teal">Flip View</Button>
+  </VStack>
+
+
 
      {isModalOpen && (
         <ExerciseModal
