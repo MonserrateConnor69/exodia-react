@@ -151,6 +151,8 @@ const highlightOverlayStyle = {
 
 // ✅ STEP 3: Update the component props and logic
 function MuscleDiagram({ isShowingFront, recoveryStates, handleMuscleClick, muscleGroups,  isDietGenerated, onHeadClick, }) {
+
+  console.log("Muscle Groups count:", muscleGroups.length); 
   return (
     <div className="diagram-container">
       <img
