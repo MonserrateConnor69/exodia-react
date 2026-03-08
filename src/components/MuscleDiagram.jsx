@@ -178,9 +178,9 @@ function MuscleDiagram({ isShowingFront, recoveryStates, handleMuscleClick, musc
         
         if (config && stage && (config.view === 'front' ? isShowingFront : !isShowingFront)) {
           let highlightImage;
-          if (stage === 1) highlightImage = redHighlights[muscle.id];
-          else if (stage === 2) highlightImage = yellowHighlights[muscle.id];
-          else if (stage === 3) highlightImage = greenHighlights[muscle.id];
+          if (stage == 1) highlightImage = redHighlights[muscle.id];
+          else if (stage == 2) highlightImage = yellowHighlights[muscle.id];
+          else if (stage == 3) highlightImage = greenHighlights[muscle.id];
 
           if (highlightImage) {
             return (
